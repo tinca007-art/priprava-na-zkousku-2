@@ -14,6 +14,40 @@ Třída bude mít metody:
 - checkOut() - zapůjčení knihy, při zavolání nastavíme onLoan na true a zvýšíme počítadlo zapůjčení
 - checkIn() - vrácení knihy, nastavíme onLoan na false
 */
+class Book {
+  constructor(isbn, title, author, onLoan, loanCount) {
+    this.isbn = isbn;
+    this.title = title;
+    this.author = author;
+    this.onLoan = false;
+    this.loanCount = 0;
+  }
+
+  isOnLoad() {
+    return this.onLoan ? "Kniha je vypůjčená" : "Kniha je dostupná";
+  }
+
+  checkOut() {
+    if (this.onLoan) {
+      console.log("Kniha je již vypůjčená");
+      return;
+    }
+    this.onLoan = true;
+    this.loanCount += 1;
+  }
+
+  checkIn() {
+    this.onLoan = false;
+  }
+}
+
+const myBook = new Book('1234567890', 'Název knihy', 'Autor knihy');
+console.log(myBook.isOnLoad()); // vypíše stav knihy
+myBook.checkOut();
+console.log(myBook.isOnLoad()); // vypíše stav knihy po zapůjčení
+myBook.checkIn();
+console.log(myBook.isOnLoad()); // vypíše stav knihy po vrácení
+
 
 
 
@@ -29,3 +63,30 @@ A bude mít navíc metody:
 - removeCommentsFromPage(pageNumber) - odstraní z pole všechny komentáře pro danou stránku
 - removeCommentsFromUser(userName) - odstraní z pole všechny komentáře od daného uživatele
 */
+class EBook extends Book {
+  constructor(isbn, title, author, onLoan, loanCount) {
+    super(isbn, title, author, onLoan, loanCount);
+    this.comments = [];
+  }
+
+  addComment(userName, pageNumber, comment) {
+    this.comments.push({ user: userName, page: pageNumber, comment });
+  }
+
+  removeCommentsFromPage(pageNumber) {
+    this.comments = this.comments.filter(c => c.page !== pageNumber);
+  }
+
+  removeCommentsFromUser(userName) {
+    this.comments = this.comments.filter(c => c.user !== userName);
+  }
+}
+
+const myEBook = new EBook('0987654321', 'Název e-knihy', 'Autor e-knihy');
+myEBook.addComment('Uživatel1', 10, 'Skvělá kapitola!');
+myEBook.addComment('Uživatel2', 15, 'Zajímavé informace.');
+console.log(myEBook.comments); // vypíše všechny komentáře
+myEBook.removeCommentsFromPage(10);
+console.log(myEBook.comments); // vypíše komentáře po odstranění komentářů z stránky 10
+myEBook.removeCommentsFromUser('Uživatel2');
+console.log(myEBook.comments); // vypíše komentáře po odstranění komentářů od uživatele2

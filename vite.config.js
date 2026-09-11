@@ -11,7 +11,7 @@ export default defineConfig({
 
   // === Exercises ===
 
-  root: './01-array-methods',
+  // root: './01-array-methods',
   // root: './02-spread-operator',
   // root: './03-rest-operator',
   // root: './04-class',

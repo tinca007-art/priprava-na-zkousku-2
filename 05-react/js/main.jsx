@@ -34,10 +34,14 @@ Pole objektů je uložené v samostatném souboru books-data.js.
 */
 
 import { createRoot } from "react-dom/client";
+import { App } from "./app.jsx";
+import { Book } from "./book.jsx";  
+
+
 
 const container = document.getElementById("app");
 const root = createRoot(container);
-root.render(<h1>Ahoj</h1>);
+root.render(<App />);
 
 
 
